@@ -1,6 +1,5 @@
 .vscode/
 run.exe
-data/data.csv
 data/data.png
 data/filtered_data.csv
 data/filtered_data.png
