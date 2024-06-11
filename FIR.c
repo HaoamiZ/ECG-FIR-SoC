@@ -1,4 +1,8 @@
 #include "FIR.h"
+#include "fir_coef.h"
+
+static float buffer[taps];
+unsigned offset;
 
 float FIR_filter(float input)
 {

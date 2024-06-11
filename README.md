@@ -13,17 +13,21 @@ FIR and Pan_Tompkins_detect refer to https://github.com/GCY/wxECGAnalyzer.git
 ├── Pan_Tompkins_detect.c # Use Pan-Tompkins algorithm for detecting QRS complexes
 ├── Pan_Tompkins_detect.h
 ├── data
-│   ├── data.csv # orignal ECG signal data
-│   ├── data_format.py # convert original data to c format
+│   ├── ECGcoe # ECG signal data
+│   ├── data_format.py # convert ECG signal data to variable in c header file
 │   ├── data_plot.py # plot ECG signal
+├── FIR_design
+│   ├── FIR.mat # FIR filter coefficients design by MATLAB
+│   ├── fir_coef_read_from_mat.py # convert FIR filter coefficients to variable in c header file
 ├── Makefile
 ├── README.md
 ```
 
 How to use:
 ```bash
-make
+make run
+make plot
+make clean
 ```
-BUT now FIR filter is not usefull, because it is not optimized.
 
 ## Hardware

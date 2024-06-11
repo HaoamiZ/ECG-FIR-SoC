@@ -1,6 +1,4 @@
 .vscode/
 run.exe
-data/data.png
-data/filtered_data.csv
-data/filtered_data.png
-data/formatted_data.txt
+data/ecg_data.h
+FIR_design/fir_coef.h
