@@ -25,9 +25,7 @@ FIR and Pan_Tompkins_detect refer to https://github.com/GCY/wxECGAnalyzer.git
 
 How to use:
 ```bash
-make run
-make plot
-make clean
+make DEST_ECG_SIGNAL=ECG01
 ```
 
 ## Hardware

@@ -1,15 +1,17 @@
 import sys
 import scipy.io
 
-if len(sys.argv) < 2:
-    print("Usage: python fir_coef_read_from_mat.py <mat_file_path>")
+if len(sys.argv) < 3:
+    print("Usage: python fir_coef_read_from_mat.py <mat_file_path> <output_file_path>")
     sys.exit(1)
 mat_file_path = sys.argv[1]
+output_file_path = sys.argv[2]
+
 mat = scipy.io.loadmat(mat_file_path)
 
 fir_coefficient = mat['Num'][0]
 
-with open("fir_coef.h","w") as f:
+with open(output_file_path,"w") as f:
     f.write("#ifndef __FIR_COEFFICIENT_H__\n")
     f.write("#define __FIR_COEFFICIENT_H__\n")
     f.write(f"#define taps {len(fir_coefficient)}\n")

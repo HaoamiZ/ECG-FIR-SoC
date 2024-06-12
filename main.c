@@ -60,7 +60,7 @@ int main(void)
     }
 
     // Save filtered signal to file
-    FILE *file = fopen("./data/ECGcoe/ECG0x_filtered.coe", "w");
+    FILE *file = fopen("./data/ECGcoe/ECG_filtered.coe", "w");
     if (file == NULL)
     {
         fprintf(stderr, "Cannot open file for writing\n");

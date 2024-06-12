@@ -1,3 +1,4 @@
+env
 .vscode/
 run.exe
 data/ecg_data.h
