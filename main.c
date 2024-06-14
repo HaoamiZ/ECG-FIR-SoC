@@ -5,20 +5,20 @@
 
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
-int main(void)
-{
-    int signal_length = sizeof(ecg_signal) / sizeof(ecg_signal[0]);
-    float *filtered_signal = (float *)malloc(signal_length * sizeof(float));
+void Filter(SignalPoint* signal,float *filtered_signal,int signal_length){
+    for (int i = 0; i < signal_length; ++i)
+    {
+        filtered_signal[i] = FIR_filter(signal[i].value);
+    }
+}
 
+void calculate_heart_rate(float *filtered_signal,float average_heart_rate,int signal_length){
     uint32_t peaks[MAX_PEAKS];
     int num_peaks = 0; // 检测到的QRS波峰值数量
-    float average_heart_rate = 0.0f;
     float sum_intervals = 0.0f;
 
     for (int i = 0; i < signal_length; ++i)
     {
-        filtered_signal[i] = FIR_filter(ecg_signal[i].value);
-
         double result = filtered_signal[i];
         double bandpass;
         double integral;
@@ -58,6 +58,19 @@ int main(void)
             num_peaks++;
         }
     }
+}
+
+int main(void)
+{
+    int signal_length = sizeof(ecg_signal) / sizeof(ecg_signal[0]);
+    float *filtered_signal = (float *)malloc(signal_length * sizeof(float));
+    float average_heart_rate = 0.0f;
+
+    // Signal filtering
+    Filter(ecg_signal, filtered_signal, signal_length);
+
+    // Heart rate calculation
+    calculate_heart_rate(filtered_signal,average_heart_rate,signal_length);
 
     // Save filtered signal to file
     FILE *file = fopen("./data/ECGcoe/ECG_filtered.coe", "w");
