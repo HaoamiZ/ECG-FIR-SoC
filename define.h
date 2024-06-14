@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 
-//const uint32_t SAMPLING_RATE = 1000;
 #define SAMPLING_RATE 360
 #define MAX_PEAKS 100 // 最大波峰数量
 

@@ -12,10 +12,11 @@ void Filter(SignalPoint* signal,float *filtered_signal,int signal_length){
     }
 }
 
-void calculate_heart_rate(float *filtered_signal,float average_heart_rate,int signal_length){
+float calculate_heart_rate(float *filtered_signal,int signal_length){
     uint32_t peaks[MAX_PEAKS];
     int num_peaks = 0; // 检测到的QRS波峰值数量
     float sum_intervals = 0.0f;
+    float average_heart_rate = 0.0f;
 
     for (int i = 0; i < signal_length; ++i)
     {
@@ -37,12 +38,12 @@ void calculate_heart_rate(float *filtered_signal,float average_heart_rate,int si
         // 记录QRS波峰
         if (peak.index != -1)
         {
-            peaks[num_peaks%MAX_PEAKS]= i + ecg_signal[0].index;
-            printf("Peak detected at index %d, value %f\n", i + ecg_signal[0].index, filtered_signal[i]);
+            peaks[num_peaks%MAX_PEAKS]= i;
+            printf("Peak detected at index %d, value %f\n", i, filtered_signal[i]);
             // 计算实时平均心率
             if (num_peaks > 0)
             {
-                float sum_intervals = 0.0f;
+                sum_intervals = 0.0f;
                 for (int i = num_peaks%MAX_PEAKS; i > 0; i--) {
                     sum_intervals += peaks[i] - peaks[i-1];
                 }
@@ -58,6 +59,7 @@ void calculate_heart_rate(float *filtered_signal,float average_heart_rate,int si
             num_peaks++;
         }
     }
+    return average_heart_rate;
 }
 
 int main(void)
@@ -70,7 +72,7 @@ int main(void)
     Filter(ecg_signal, filtered_signal, signal_length);
 
     // Heart rate calculation
-    calculate_heart_rate(filtered_signal,average_heart_rate,signal_length);
+    average_heart_rate = calculate_heart_rate(filtered_signal,signal_length);
 
     // Save filtered signal to file
     FILE *file = fopen("./data/ECGcoe/ECG_filtered.coe", "w");
